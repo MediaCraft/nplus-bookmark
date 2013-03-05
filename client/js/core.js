@@ -171,6 +171,14 @@ function init(dialog, options)
 			(bookmarkButtonCallbacks.onDelete || $.noop)(deleteDeferred, kind, uid);
 		}
 	});
+	
+	$(window).bind('npmBookmarkUpdate', function(e, data){
+		$.npmBookmarkDisplay(data.item.kind, data.item.uid, {rating:data.rating, memo:!!data.memo});
+	});
+	
+	$(window).bind('npmBookmarkDelete', function(e, data){
+		$.npmBookmarkDisplay(data.item.kind, data.item.uid);
+	});
 }
 
 //ダイアログのデータ初期化と登録データの復元
@@ -434,6 +442,32 @@ $.fn.npmBookmarkButton = function(options){
 	}
 }
 
+$.npmBookmarkDisplay = function(kind, uid, data){
+	
+	var elems = $('.npm-display-'+kind+'-'+uid);
+	if(data)
+	{
+		var CLASS_HAS_MEMO = 'npm-has-memo-';
+		var CLASS_RATING = 'npm-rating-';
+		
+		//クリア
+		elems.removeClass(CLASS_HAS_MEMO+'yes '+CLASS_HAS_MEMO+'no');
+		for(var i=0; i<=5; i++)
+		{
+			elems.removeClass(CLASS_RATING + i);
+		}
+		
+		elems.addClass(CLASS_HAS_MEMO + (data.memo ? 'yes' : 'no'));
+		elems.addClass(CLASS_RATING + (data.rating ? data.rating : '0'));
+		elems.show();
+	}
+	else
+	{
+		elems.hide();
+	}
+}
+
+
 $.npmBookmarkButton = function(options){
 	var CLASS_NOT_ADDED = 'npm-not-added';
 	var CLASS_ADDED = 'npm-added';
@@ -506,12 +540,16 @@ $.npmBookmarkButton = function(options){
 		
 		//登録されているかのチェック
 		return $.npmBookmarkData('bookmark-exists', items).done(function(data){
+			
 			for(var kind in buttons)
 			{
 				for(var uid in buttons[kind])
 				{
 					$.each(buttons[kind][uid], function(){
-						var notfound = $.inArray(uid, data[kind]) == -1;
+						var values = data[kind][uid];
+						$.npmBookmarkDisplay(kind, uid, values);
+						
+						var notfound = values == undefined;
 						this.toggleClass(CLASS_NOT_ADDED, notfound);
 						this.toggleClass(CLASS_ADDED, !notfound);
 					});

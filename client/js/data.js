@@ -156,7 +156,8 @@ function apiBookmarkDelete(kind, uid)
 
 	return post(params).done(function(data) {
 		removeFromCache(params.kind, params.uid);
-		$(window).trigger('npmBookmarkDelete', data);
+		var item = {kind:params.kind, uid:params.uid};
+		$(window).trigger('npmBookmarkDelete', {item:item});
 	});
 }
 

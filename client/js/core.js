@@ -172,6 +172,7 @@ function init(dialog, options)
 		}
 	});
 	
+	//npm-display-[kind]-[uid]のクラスがついてるものにratingとmemo有り無しclassをくっつける
 	$(window).bind('npmBookmarkUpdate', function(e, data){
 		$.npmBookmarkDisplay(data.item.kind, data.item.uid, {rating:data.rating, memo:!!data.memo});
 	});
@@ -442,6 +443,7 @@ $.fn.npmBookmarkButton = function(options){
 	}
 }
 
+//npm-display-[kind]-[uid]
 $.npmBookmarkDisplay = function(kind, uid, data){
 	
 	var elems = $('.npm-display-'+kind+'-'+uid);
@@ -582,16 +584,28 @@ $.npmBookmarkButton = function(options){
 		});
 	}
 
+	//buttonを探す関数
+	var use_interval = typeof options.useInterval == 'undefined' || options.useInterval;
 	function find(){
 		var button_elements = button_parent.find(options.target).filter(':not('+'.'+CLASS_ENABLE+', .'+CLASS_DISABLE+')');
 		if (!button_elements.length)
 		{
+			if(use_interval)
+			{
+				setTimeout(find, 500);
+			}
+			
 			return;
 		}
 		if(options.credential)
 		{
-			checkElements(button_elements).always(function(){
-				button_elements.addClass(CLASS_ENABLE);					
+			checkElements(button_elements).done(function(){
+				if(use_interval)
+				{
+					setTimeout(find, 500);
+				}
+			}).always(function(){
+				button_elements.addClass(CLASS_ENABLE);
 			});
 			(options.onButtonAdded || $.noop)(button_elements);
 		} else {
@@ -600,11 +614,6 @@ $.npmBookmarkButton = function(options){
 	}
 	
 	find();
-	
-	if(typeof options.useInterval == 'undefined' || options.useInterval)
-	{
-		setInterval(find, 500);
-	}
 	
 	return this;
 };

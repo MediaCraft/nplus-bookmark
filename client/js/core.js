@@ -525,7 +525,10 @@ $.npmBookmarkButton = function(options){
 				items[kind] = [];
 			}
 			
-			items[kind].push(uid);
+			if($.inArray(uid, items[kind]) == -1)
+			{
+				items[kind].push(uid);
+			}
 			
 			if(!buttons[kind])
 			{

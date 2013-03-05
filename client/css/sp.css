@@ -1,0 +1,52 @@
+@charset "UTF-8";/* 雀の往来 */
+
+/********************
+ 0. base
+********************/
+
+
+/********************
+0. base
+********************/
+
+/* モーダルウィンドウ設定 */
+.npm-bookmark-dialog.npm-device-sp.sp-modal-window{
+	position: absolute;
+	top: 0;
+	left: 0;
+	-webkit-transition: -webkit-transform 400ms ease;
+	width: 100%;
+	height: auto;
+}
+
+/* ダイアログ外枠 */
+.npm-bookmark-dialog.npm-device-sp {
+	background-color: #666666;
+	color:#ffffff;
+}
+
+/* ヘッダー */
+.npm-bookmark-dialog.npm-device-sp .npm-bookmark-dialog-header {
+	padding: 5px;
+}
+
+/* 閉じるボタン */
+span.close {
+	height: 22px;
+	margin-top: 3px;
+}
+/********************
+1. common
+********************/
+
+/* 各項目内容枠 */
+.npm-bookmark-dialog.npm-device-sp .npm-display-container dl dd.npm-rate-caption {
+	padding: 0 0 10px 0px;
+}
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container dl dd.npm-rate-caption {
+	padding: 0 0 10px 22px;
+}
+.npm-bookmark-dialog.npm-device-sp .npm-display-container dl dd.npm-rate-caption span,
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container dl dd.npm-rate-caption span {
+	padding: 0 30px 0 6px;
+}

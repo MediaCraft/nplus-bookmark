@@ -1,0 +1,199 @@
+@charset "UTF-8";/* 雀の往来 */
+/********************
+ 0. base
+ 1. common
+ 2. display mode
+ 3. edit mode
+ 4. delete-mode
+********************/
+
+/********************
+0. base
+********************/
+
+/* モーダル */
+#sdxTipOverlay {
+	z-index: 98;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+	background-color: #fff;
+}
+
+/* ダイアログ外枠 */
+.npm-bookmark-dialog.npm-device-pc {
+	z-index: 99;
+	width: 400px;
+	padding: 9px;
+	border: 1px solid #b3b7ba;
+	border-radius: 5px;
+	background-color: #fff;
+	color:#666666;
+	box-shadow: 6px 10px 15px #777; /*CSS3*/
+	-moz-box-shadow: 6px 10px 15px #777; /* Firefox用*/
+	-webkit-box-shadow: 6px 10px 15px #777; /* Google Chrome, Safari用*/
+}
+
+/* ダイアログ外枠 閲覧モード*/
+.npm-device-pc.npm-display-mode {
+	background-color: #fff;
+}
+/* ダイアログ外枠 編集モード*/
+.npm-device-pc.npm-edit-mode {
+	background-color: #fff;
+}
+
+
+/* ダイアログ内枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container {
+	background-color: #fcfdeb;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-display-container,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container,
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container {
+	position: relative;
+	clear: both;
+	border-radius: 5px;
+}
+
+
+
+/********************
+1. common
+********************/
+
+/* ダイアログヘッダー */
+.npm-device-pc .npm-bookmark-dialog-header {
+	display: relative;
+	cursor: pointer;
+}
+
+
+/* ページタイトル閉じるボタン */
+.npm-device-pc .npm-bookmark-dialog-header .close {
+	float: right;
+}
+
+/* ボタン枠 */
+.npm-bookmark-dialog .npm-display-container .npm-action:last-child{
+	position: absolute;
+	right: 10px;
+	bottom: 3px;
+	border-bottom: none;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action:first-child {
+	border-bottom: 1px solid #ccc;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-action,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action {
+	border-bottom: 1px solid #ccc;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action {
+	border-bottom: none;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-action,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action,
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container .npm-action {
+	margin-bottom: 10px;
+	padding-bottom: 6px;
+	width: auto;
+	margin: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	cursor: default;
+}
+
+
+/* 編集キャンセルボタン */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action .npm-dialog-button.npm-edit-cancel {
+	color: #3866ef;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* 登録ボタン */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-action .npm-dialog-button.npm-send {
+	font-size: 16px;
+	line-height: 2.0em;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd,
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container dl dd {
+	margin-bottom: 10px;
+}
+
+/* コメント枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-memo-display {
+	width: auto;
+}
+
+/* 登録日時内容枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd.npm-date,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-date,
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container dl dd.npm-date {
+	margin-bottom: 0px;
+	padding-top: 3px;
+	padding-bottom: 0px;
+}
+
+/* 各項目内容枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd.npm-rate-caption {
+	padding: 0 0 10px 0px;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-rate-caption {
+	padding: 0 0 10px 22px;
+}
+.npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd.npm-rate-caption span,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-rate-caption span {
+	padding: 0 31px 0 7px;
+}
+
+/********************
+ 2. display mode
+********************/
+/* 編集ボタン */
+
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-action .npm-dialog-button.npm-edit {
+	cursor: pointer;
+}
+
+/* 削除確認ボタン */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-action .npm-dialog-button.npm-delete-confirm {
+	cursor: pointer;
+}
+
+/********************
+3. edit mode
+********************/
+
+/* ラベル枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-tags {
+	letter-spacing: normal;
+	background-color: #ffffff;
+}
+
+.npm-device-pc .sdx-tag .suggest-button {
+
+}
+
+/********************
+ 4. delete-mode
+********************/
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container {
+	padding: 50px 0;
+}
+
+.npm-bookmark-dialog.npm-device-pc .npm-title {
+	font-weight: bold;
+}
+
+/* 削除決定ボタン */
+.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container .npm-dialog-button.npm-delete {
+	cursor: pointer;
+}
+
+/* 削除キャンセルボタン */
+.npm-bookmark-dialog.npm-device-pc .npm-dialog-button.npm-delete-cancel {
+	cursor: pointer;
+}

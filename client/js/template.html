@@ -1,0 +1,98 @@
+<div class="npm-bookmark-dialog">
+
+<div class="npm-bookmark-dialog-header clearfix">
+	<span class="dialog-title">マイレビュー</span>
+	<span class="close"><img src="http://test.cdn.n-plus.me/bookmark/1.0/img/close-btn.png" width="22" height="22" alt=""></span>
+	<div class="npm-load-container">Loding...</div>
+</div>
+
+<div class="npm-edit-container">
+	<form>
+		<ul class="npm-action">
+			<li class="npm-dialog-button npm-edit-cancel">≪編集を取り消す</li>
+		</ul>
+		<p class="npm-title"></p>
+		<dl>
+			<dt class="rate-title">評価</dt>
+			<dd class="npm-rate">
+				<div class="ui"></div>
+				<ul class="desc"></ul>
+			</dd>
+			<dd class="npm-rate-caption">
+				<span>最低</span><span>ふつう</span><span>最高</span>
+			</dd>
+			<dt class="label-title">ラベル</dt>
+			<dd class="npm-tags"></dd>
+			<dt class="memo-title">コメント</dt>
+			<dd class="npm-memo">
+				<p>残り: <span class="npm-memo-count">4000</span>文字</p>
+				<textarea name="memo" class="npm-memo-textarea" data-max-length="4000"></textarea>
+				<p class="npm-memo-count-message">文字数がオーバーしています。文字数を減らしてください。</p>
+			</dd>
+
+			<!--
+			<dt>フラグ</dt>
+			<dd>
+				<label for="npm-is_purchased"><input id="npm-is_purchased" type="checkbox" value="1" name="is_purchased" />遊んだ</label>
+			</dd>
+			 -->
+		</dl>
+		<ul class="npm-action">
+			<li class="npm-dialog-button npm-send">保存する</li>
+		</ul>
+		<div class="npm-save-container">Saving...</div>
+		<input type="hidden" name="uid" value="" />
+		<input type="hidden" name="kind" value="" />
+	</form>
+</div>
+
+<div class="npm-display-container">
+	<ul class="npm-action">
+		<li class="npm-dialog-button npm-edit">編集する</li>
+	</ul>
+		<p class="npm-title"></p>
+	<dl>
+		<dt class="rate-title">評価</dt>
+		<dd class="npm-rate-display"></dd>
+		<dd class="npm-rate-caption">
+			<span>最低</span><span>ふつう</span><span>最高</span>
+		</dd>
+		<dt class="label-title">ラベル</dt>
+		<dd class="npm-tags-display">---</dd>
+		<dt class="memo-title">コメント</dt>
+		<dd class="npm-memo-display"></dd>
+		<!--<dt>日時</dt>
+		<dd class="npm-date">
+			登録：<span class="npm-created_at">---</span><br />
+			編集：<span class="npm-mod_date">---</span>
+		</dd>-->
+		<!--
+		<dt>フラグ</dt>
+		<dd class="npm-is-purchased-display">---</dd>
+		-->
+	</dl>
+	<ul class="npm-date">
+		<li>登録：<span class="npm-created_at">---</span></li>
+		<li>編集：<span class="npm-mod_date">---</span></li>
+	</ul>
+	<ul class="npm-action">
+		<li class="npm-dialog-button npm-delete-confirm">削除</li>
+	</ul>
+</div>
+
+<div class="npm-delete-confirm-container">
+	<p>
+		<span class="npm-title"></span><br />
+		をマイページから除外します。<br />
+		よろしいですか？
+	</p>
+	<p class="npm-attention">
+		※関連する評価/ラベル/コメントも削除されます。
+	</p>
+	<ul class="npm-action">
+		<li class="npm-dialog-button npm-delete">削除する</li>
+		<li class="npm-dialog-button npm-delete-cancel">キャンセル</li>
+	</ul>
+</div>
+
+</div>

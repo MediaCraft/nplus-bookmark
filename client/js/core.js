@@ -10,7 +10,6 @@ var MODE_EDIT = 'npm-edit-mode';
 var MODE_DELETE_CONFIRM = 'npm-delete-confirm-mode';
 var _need_taglist_update = true;
 
-var bookmarkButtonCallbacks = {};
 var _dialog;
 var _npm_display;
 var _npm_edit;
@@ -137,8 +136,6 @@ function init(dialog, options)
 				_leaveBlocking();
 				_npm_edit.removeClass(CLASS_SAVING);
 			});
-			(options.onSave || $.noop)(saveDeferred, kind, uid);
-			(bookmarkButtonCallbacks.onSave || $.noop)(saveDeferred, kind, uid);
 		}
 	});
 	
@@ -167,17 +164,15 @@ function init(dialog, options)
 			}).always(function(){
 				_leaveBlocking();
 			});
-			(options.onDelete || $.noop)(deleteDeferred, kind, uid);
-			(bookmarkButtonCallbacks.onDelete || $.noop)(deleteDeferred, kind, uid);
 		}
 	});
 	
 	//npm-display-[kind]-[uid]のクラスがついてるものにratingとmemo有り無しclassをくっつける
-	$(window).bind('npmBookmarkUpdate', function(e, data){
+	$(window).on('npmBookmarkUpdate', function(e, data){
 		$.npmBookmarkDisplay(data.item.kind, data.item.uid, {rating:data.rating, memo:!!data.memo});
 	});
 	
-	$(window).bind('npmBookmarkDelete', function(e, data){
+	$(window).on('npmBookmarkDelete', function(e, data){
 		$.npmBookmarkDisplay(data.item.kind, data.item.uid);
 	});
 }
@@ -186,6 +181,7 @@ function init(dialog, options)
 function load(kind, uid, isAdded, title)
 {
 	_setDialogParams({});
+	_toDisplayMode();
 	
 	$('.npm-title').html(title);
 	
@@ -269,7 +265,7 @@ function _toEditMode()
 function _toDisplayMode()
 {
 	//memo
-	var memo_value = autolink(_params.memo);
+	var memo_value = autolink(_params.memo || '');
 	memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : '';
 	_npm_display.find('.npm-memo-display').html(memo_value);
 	
@@ -469,14 +465,43 @@ $.npmBookmarkDisplay = function(kind, uid, data){
 	}
 }
 
-
+var bookmark_button_parent;
+var bookmark_buttons = {};
+var bookmark_button_options = {};
 $.npmBookmarkButton = function(options){
 	var CLASS_NOT_ADDED = 'npm-not-added';
 	var CLASS_ADDED = 'npm-added';
 	var CLASS_DISABLE = 'npm-disable';
-	var CLASS_ENABLE = 'npm-enable';	
-	
-	var buttons = {};	
+	var CLASS_ENABLE = 'npm-enable';
+
+	//buttonを探す関数
+	var use_interval = typeof bookmark_button_options.useInterval == 'undefined' || bookmark_button_options.useInterval;
+	function find(){
+		var button_elements = bookmark_button_parent.find(bookmark_button_options.target).filter(':not('+'.'+CLASS_ENABLE+', .'+CLASS_DISABLE+')');
+		if (!button_elements.length)
+		{
+			if(use_interval)
+			{
+				setTimeout(find, 500);
+			}
+			
+			return;
+		}
+		if(bookmark_button_options.credential)
+		{
+			checkElements(button_elements).done(function(){
+				if(use_interval)
+				{
+					setTimeout(find, 500);
+				}
+			}).always(function(){
+				button_elements.addClass(CLASS_ENABLE);
+			});
+			(bookmark_button_options.onButtonAdded || $.noop)(button_elements);
+		} else {
+			button_elements.addClass(CLASS_DISABLE);					
+		}
+	}
 
 	if (typeof options == 'string'){
 		switch(options){
@@ -488,28 +513,26 @@ $.npmBookmarkButton = function(options){
 		}
 	}
 
-	bookmarkButtonCallbacks = {
-		onSave: function(save_deferred, kind, uid){
-			save_deferred.done(function(data){
-				if (!buttons[kind] || !buttons[kind][uid]) return;
-	
-				$.each(buttons[kind][uid], function(){
-					this.toggleClass(CLASS_NOT_ADDED, false);
-					this.toggleClass(CLASS_ADDED, true);
-				});
-			});
-		},
-		onDelete: function(delete_deferred, kind, uid){
-			delete_deferred.done(function(data){
-				if (!buttons[kind] || !buttons[kind][uid]) return;
-	
-				$.each(buttons[kind][uid], function(){
-					this.toggleClass(CLASS_NOT_ADDED, true);
-					this.toggleClass(CLASS_ADDED, false);
-				});
-			});
-		}
-	};
+	bookmark_button_options = options;
+	bookmark_button_parent = $(bookmark_button_options.parent);	
+
+	$(window).on('npmBookmarkUpdate', function(e, data){
+		var kind = data.item.kind, uid = data.item.uid;
+		if (!bookmark_buttons[kind] || !bookmark_buttons[kind][uid]) return;
+		
+		$.each(bookmark_buttons[kind][uid], function(){
+			this.toggleClass(CLASS_NOT_ADDED, false);
+			this.toggleClass(CLASS_ADDED, true);
+		});
+	}).on('npmBookmarkDelete', function(e, data){
+		var kind = data.item.kind, uid = data.item.uid;
+		if (!bookmark_buttons[kind] || !bookmark_buttons[kind][uid]) return;
+		
+		$.each(bookmark_buttons[kind][uid], function(){
+			this.toggleClass(CLASS_NOT_ADDED, true);
+			this.toggleClass(CLASS_ADDED, false);
+		});
+	});
 	
 	function checkElements(button_elements)
 	{
@@ -530,27 +553,27 @@ $.npmBookmarkButton = function(options){
 				items[kind].push(uid);
 			}
 			
-			if(!buttons[kind])
+			if(!bookmark_buttons[kind])
 			{
-				buttons[kind] = {};
+				bookmark_buttons[kind] = {};
 			}
 	
-			if(!buttons[kind][uid])
+			if(!bookmark_buttons[kind][uid])
 			{
-				buttons[kind][uid] = [];
+				bookmark_buttons[kind][uid] = [];
 			}
 	
-			buttons[kind][uid].push(elem);
+			bookmark_buttons[kind][uid].push(elem);
 		});
 		
 		//登録されているかのチェック
 		return $.npmBookmarkData('bookmark-exists', items).done(function(data){
 			
-			for(var kind in buttons)
+			for(var kind in bookmark_buttons)
 			{
-				for(var uid in buttons[kind])
+				for(var uid in bookmark_buttons[kind])
 				{
-					$.each(buttons[kind][uid], function(){
+					$.each(bookmark_buttons[kind][uid], function(){
 						var values = data[kind][uid];
 						$.npmBookmarkDisplay(kind, uid, values);
 						
@@ -562,11 +585,11 @@ $.npmBookmarkButton = function(options){
 			}
 			
 		}).fail(function(error){
-			for(var kind in buttons)
+			for(var kind in bookmark_buttons)
 			{
-				for(var uid in buttons[kind])
+				for(var uid in bookmark_buttons[kind])
 				{
-					$.each(buttons[kind][uid], function(){
+					$.each(bookmark_buttons[kind][uid], function(){
 						this.toggleClass(CLASS_ADDED, false);
 						this.toggleClass(CLASS_NOT_ADDED, true);
 					});
@@ -575,45 +598,15 @@ $.npmBookmarkButton = function(options){
 		});
 	}
 	
-	var button_parent = $(options.parent);
-	if(options.credential)
+	if(bookmark_button_options.credential)
 	{
-		button_parent.on('click', options.target, function(){
+		bookmark_button_parent.on('click', bookmark_button_options.target, function(){
 			var $this = $(this);
 			if ($this.hasClass(CLASS_ENABLE)){
 				$this.trigger('startBookmarkEdit');
 				return false;
 			}
 		});
-	}
-
-	//buttonを探す関数
-	var use_interval = typeof options.useInterval == 'undefined' || options.useInterval;
-	function find(){
-		var button_elements = button_parent.find(options.target).filter(':not('+'.'+CLASS_ENABLE+', .'+CLASS_DISABLE+')');
-		if (!button_elements.length)
-		{
-			if(use_interval)
-			{
-				setTimeout(find, 500);
-			}
-			
-			return;
-		}
-		if(options.credential)
-		{
-			checkElements(button_elements).done(function(){
-				if(use_interval)
-				{
-					setTimeout(find, 500);
-				}
-			}).always(function(){
-				button_elements.addClass(CLASS_ENABLE);
-			});
-			(options.onButtonAdded || $.noop)(button_elements);
-		} else {
-			button_elements.addClass(CLASS_DISABLE);					
-		}
 	}
 	
 	find();

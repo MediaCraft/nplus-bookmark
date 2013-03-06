@@ -21,16 +21,6 @@ $.extend({
 						cancelOff:'cancel-off.png',
 						size: 44,
 						width: 'auto'
-					},
-					onSave: function(save_deferred){
-						save_deferred.done(function(data){
-							ui.tooltip.sdxTip('close');
-						});
-					},
-					onDelete: function(delete_deferred){
-						delete_deferred.done(function(data){
-							ui.tooltip.sdxTip('close');
-						});
 					}
 				});
 				
@@ -48,9 +38,13 @@ $.extend({
 			}
 		});
 
+		$(window).on('npmBookmarkUpdate npmBookmarkDelete', function(){
+			dialog.sdxTip('close');
+		});
+		
 		$(options.parent).on('startBookmarkEdit', options.target, function(){
 			var $this = $(this);
-			dialog.sdxTip('open', $this, $this.attr('data-nmp-tipPlace').split(','));
+			dialog.sdxTip('open', $this, ($this.data('npm-tipPlace') || 'window-center').split(','));
 		});
 		
 		dialog.addClass('npm-device-pc');
@@ -73,16 +67,6 @@ $.extend({
 						cancelOff:'cancel-off.png',
 						size: 44,
 						width: 'auto'
-					},
-					onSave: function(save_deferred){
-						save_deferred.done(function(data){
-							ui.tooltip.sdxModalWindow('close');
-						});
-					},
-					onDelete: function(delete_deferred){
-						delete_deferred.done(function(data){
-							ui.tooltip.sdxModalWindow('close');
-						});
 					}
 				});
 				ui.tooltip.find('.close').on('click', function(){
@@ -96,6 +80,10 @@ $.extend({
 			},
 			onPlaced: function(event, ui){
 			}
+		});
+
+		$(window).on('npmBookmarkUpdate npmBookmarkDelete', function(){
+			dialog.sdxModalWindow('close');
 		});
 
 		$(options.parent).on('startBookmarkEdit', options.target, function(){

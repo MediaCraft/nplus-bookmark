@@ -16,6 +16,7 @@ var _npm_edit;
 var _npm_delete_confilm;
 var _npm_dialog_header;
 var _params;
+var _editing;
 
 //var event;
 //var ui;
@@ -92,6 +93,7 @@ function init(dialog, options)
 		'tagDidChange':function(ui, event){
 			//タグのリストを取得しにいくタイミングが、微妙に違ったので、save後に移動しました。
 			//_need_taglist_update = true;
+			console.info("change");
 		}
 	});
 	
@@ -224,6 +226,7 @@ function _updateTagSuggestValues(kind)
 //編集モードへの切り替え
 function _toEditMode()
 {
+	_editing = false;
 	//memo(オートリンクを付けながらセット)
 	var memo = _npm_edit.find('.npm-memo .npm-memo-textarea');
 	var max = memo.data('max-length');

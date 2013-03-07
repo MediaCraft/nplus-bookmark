@@ -131,8 +131,14 @@ span.close {
 	margin: 10px 0px;
 	padding-bottom: 10px;
 	border-bottom: 1px dotted #8f8f8f;
-	font-size: 14px;
+	font-size: 138.5%;
 	font-weight: bold;
+	line-height: 20px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-title span,
+.npm-bookmark-dialog .npm-display-container .npm-title span {
+	font-size: 80%;
 }
 
 /* 各項目内容枠 */
@@ -195,13 +201,14 @@ span.close {
 	position:absolute;
 	top: 4px;
 	left: 0;
-	padding-top: 3px;
-	padding-left: 21px;
+	height: 20px;
+	padding-left: 23px;
 	background: url("img/edit-icon-m.png") no-repeat scroll 0 0 transparent;
-	font-size:138.5%;
+	font-size:108%;
 	color: #3866ef;
 	cursor: pointer;
 	font-weight: bold;
+	line-height: 20px;
 }
 
 /********************
@@ -214,12 +221,13 @@ span.close {
 	position:absolute;
 	top: 4px;
 	left: 0;
-	padding-top: 3px;
-	padding-left: 21px;
+	height: 20px;
+	padding-left: 23px;
 	background: url("img/edit-icon-m.png") no-repeat scroll 0 0 transparent;
 	color: #3866ef;
-	font-size:138.5%;
+	font-size:108%;
 	font-weight: bold;
+	line-height: 20px;
 }
 
 /* 削除確認ボタン

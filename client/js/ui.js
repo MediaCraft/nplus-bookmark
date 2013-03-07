@@ -10,6 +10,8 @@ function getCssPath(){
 $.extend({
 	npmBookmarkPc: function(options)
 	{
+		//左上の☓ボタンを押した時はアラートを出さない
+		var preventEditingConfirm = false;
 		var dialog = $(dialog_template).appendTo(document.body).sdxTip({
 			init: function(event, ui){
 				$.npmBookmark('init', ui.tooltip, {
@@ -25,14 +27,23 @@ $.extend({
 				});
 				
 				ui.tooltip.find('.close').on('click', function(){
+					preventEditingConfirm = true;
 					dialog.sdxTip('close');
 				});
 			},
 			onBeforeOpen: function(event, ui){
+				preventEditingConfirm = false;
 				var $this = ui.element;
 				$.npmBookmark('load', $this.data('npm-kind'), $this.data('npm-uid'), $this.npmBookmarkButton('isAdded'), $this.data('npm-title'));
 			},
+			onBeforeClose: function(event, ui){
+				if(!preventEditingConfirm && $.npmBookmark('isEditing'))
+				{
+					return confirm('内容を保存せずに終了します');
+				}
+			},
 			onClose: function(event, ui){
+				
 			},
 			onPlaced: function(event, ui){
 			}

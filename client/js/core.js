@@ -73,6 +73,7 @@ function init(dialog, options)
 	var max = memo.data('max-length');
 	memo.on('keyup change paste', function(){
 		memoCharCountValidate(this, max);
+		_editing = true;
 	});
 
 	// rationg ////////////////////////////////////////////////////////////////////
@@ -80,8 +81,13 @@ function init(dialog, options)
 	//編集モードの設定
 	var ratyOptions = $.extend(options.raty, {
 		cancel:true,
-		scoreName:'rating'
+		scoreName:'rating',
+		//とりあえず、外から渡せないけど
+		click: function(score, evt){
+			_editing = true;
+		}
 	});
+	
 	_npm_edit.find('.npm-rate').raty(ratyOptions);
 	
 	//表示モードの設定
@@ -92,8 +98,7 @@ function init(dialog, options)
 	_npm_edit.find('.npm-tags').sdxTag({
 		'tagDidChange':function(ui, event){
 			//タグのリストを取得しにいくタイミングが、微妙に違ったので、save後に移動しました。
-			//_need_taglist_update = true;
-			console.info("change");
+			_editing = true;
 		}
 	});
 	
@@ -267,6 +272,7 @@ function _toEditMode()
 //表示モードへの切り替え
 function _toDisplayMode()
 {
+	_editing = false;
 	//memo
 	var memo_value = autolink(_params.memo || '');
 	memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : '';
@@ -420,6 +426,11 @@ function maxLengthValidate(textarea){
 	});
 }
 
+function isEditing()
+{
+	return _editing;
+}
+
 
 $.npmBookmark = function(func, p1, p2, p3, p4){
 	switch(func){
@@ -427,6 +438,8 @@ $.npmBookmark = function(func, p1, p2, p3, p4){
 			return init(p1, p2);
 		case 'load':
 			return load(p1, p2, p3, p4);
+		case 'isEditing':
+			return isEditing();
 	}
 };
 

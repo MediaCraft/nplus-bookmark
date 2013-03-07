@@ -15,6 +15,7 @@
 	top: 0;
 	left: 0;
 	-webkit-transition: -webkit-transform 400ms ease;
+	transition: transform 400ms ease;
 	width: 100%;
 	height: auto;
 }

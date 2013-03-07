@@ -121,6 +121,9 @@ function init(dialog, options)
 
 	//保存ボタン
 	_dialog.find('.npm-dialog-button.npm-send').click(function(){
+		
+		_editing = false;
+		
 		if(_isNotBlocking())
 		{
 			var kind = _npm_edit.find('input[name=kind]').val();

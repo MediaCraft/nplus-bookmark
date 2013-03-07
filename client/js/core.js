@@ -476,11 +476,13 @@ $.npmBookmarkDisplay = function(kind, uid, data){
 		
 		elems.addClass(CLASS_HAS_MEMO + (data.memo ? 'yes' : 'no'));
 		elems.addClass(CLASS_RATING + (data.rating ? data.rating : '0'));
-		elems.show();
+		elems.removeClass(CLASS_NOT_ADDED);
+		elems.addClass(CLASS_ADDED);
 	}
 	else
 	{
-		elems.hide();
+		elems.removeClass(CLASS_ADDED);
+		elems.addClass(CLASS_NOT_ADDED);
 	}
 }
 

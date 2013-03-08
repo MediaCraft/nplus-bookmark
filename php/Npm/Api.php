@@ -3,7 +3,8 @@ class Npm_Api
 {
 	private
 		$_is_debug_mode = false,
-		$_params;
+		$_params,
+		$_valid_domain = null;
 	
 	/**
 	 * 
@@ -22,11 +23,8 @@ class Npm_Api
 			$params['function'] = $function;
 		}
 		
-		//$class = 'Npm_Api_'.self::_camelize($function);
-		
 		return new Npm_Api($params);
 	}
-	
 	
 	public function __construct(array &$params)
 	{
@@ -40,6 +38,11 @@ class Npm_Api
 	
 	public function request($client_id, $client_secret, $token = null)
 	{
+		if (!$this->validateRequest())
+		{
+			throw new Npm_Exception('Invalid request');
+		}
+
 		$params = $this->_buildParams($this->_params);
 		
 		$params['client_id'] = $client_id;
@@ -49,8 +52,15 @@ class Npm_Api
 		{
 			$params['token'] = $token;
 		}
-		
-		return $this->_requestFunction($this->_buildParams($params));
+
+		try
+		{
+			return $this->_requestFunction($this->_buildParams($params));
+		}
+		catch (Exception $e)
+		{
+			return array('error' => $e->getMessage());
+		}
 	}
 	
 	public function enableDebugMode()
@@ -58,6 +68,69 @@ class Npm_Api
 		$this->_is_debug_mode = true;
 	}
 	
+	/**
+	 * XMLHttpRequest 経由でのリクエストの場合に必要なセキュリティチェックを有効にする
+	 * 
+	 * $valid_domain には API リクエストを受け付けるドメイン（Npm_Api::request を使用する PHP が動いているサーバのドメイン）を渡します
+	 * DNS リバインディング対策にも利用しているため $_SERVER['HTTP_HOST'] から取得した値は使用しないでください
+	 * （"www1.example.com" "www2.example.com" など複数のホスト名からアクセスされる可能性がある場合は ".example.com" を渡してください）
+	 * また、XMLHttpRequest でリクエストする際に X-Requested-With: XMLHttpRequest を付与してください
+	 * クロスドメイン通信は許可されません
+	 * @param string $valid_domain リクエスト先ドメイン（後方一致）
+	 */
+	public function enableXHRProtection($valid_domain)
+	{
+		$this->_valid_domain = strtolower($valid_domain);
+	}
+	
+	/**
+	 * 現在のリクエストが必要な条件を満たしているか検証する
+	 * @return boolean
+	 */
+	public function validateRequest()
+	{
+		//enableXHRProtection を呼んでいない場合は全て許可
+		if ($this->_valid_domain === null)
+		{
+			return true;
+		}
+
+		//DNS リバインディング対策
+		if (!isset($_SERVER['HTTP_HOST']) || (strtolower(substr($_SERVER['HTTP_HOST'], -strlen($this->_valid_domain))) != $this->_valid_domain))
+		{
+			return false;
+		}
+		
+		//XMLHttpRequest からのリクエストかどうかを検証
+		if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest')
+		{
+			return false;
+		}
+
+		//リクエストメソッドを検証
+		if (!isset($_SERVER['REQUEST_METHOD']) || (strtolower($_SERVER['REQUEST_METHOD']) != 'post'))
+		{
+			return false;
+		}
+
+		//リクエスト元を検証　※意図せず OPTIONS で許可してしまっていた場合
+		if (isset($_SERVER['HTTP_ORIGIN']))
+		{
+			$m = null;
+			if (!preg_match('/^https?:\\/\\/(?:[a-zA-Z0-9-]+\\.)*(?:[a-zA-Z0-9-]+)/', $_SERVER['HTTP_ORIGIN'], $m))
+			{
+				return false;
+			}
+
+			if (strtolower(substr($m[0], -strlen($this->_valid_domain))) != $this->_valid_domain)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	private function _requestFunction(&$params)
 	{
 		$uri = 'http://test.n-plus.me/api/client/1.0';
@@ -68,12 +141,6 @@ class Npm_Api
 		));
 		
 		$resp = json_decode(file_get_contents($uri, false, stream_context_create($options)), true);
-		
-		
-		if(!empty($resp['error']))
-		{
-			throw new Npm_Exception('Api response has error, '.$resp['error']['message'].' url:'.$uri.'?'.$options['http']['content']);
-		}
 		
 		if($this->_is_debug_mode)
 		{

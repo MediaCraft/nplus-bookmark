@@ -207,9 +207,9 @@ function load(kind, uid, isAdded, title)
 		}).always(function(data){
 			_npm_dialog_header.removeClass(CLASS_LOADING);
 		});
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').show();
+		_npm_edit.find('.npm-top-action').show();
 	} else {
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').hide();
+		_npm_edit.find('.npm-top-action').hide();
 		_toEditMode();
 		_updateTagSuggestValues(kind);
 	}

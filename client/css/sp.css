@@ -57,3 +57,7 @@ div.npm-bookmark-dialog div.npm-display-container dl dd.npm-memo-display {
 .npm-bookmark-dialog.npm-device-sp .npm-edit-container dl dd.npm-rate-caption span {
 	padding: 0 30px 0 6px;
 }
+
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container dl dd.npm-tags {
+	background-color: #fff;
+}

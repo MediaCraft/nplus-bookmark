@@ -74,7 +74,7 @@
 /* ページタイトル */
 .npm-bookmark-dialog-header .dialog-title {
 	float: left;
-	padding: 5px 0px 5px 25px;
+	padding: 3px 0px 5px 20px;
 	background: url("img/icon-myreview.png") no-repeat scroll 0 0 transparent;
 	font-size: 14px;
 	font-weight: bold;
@@ -95,6 +95,10 @@
 .npm-bookmark-dialog .npm-edit-container dl dt.memo-title {
 	padding-left: 20px;
 	background: url("img/icon-memo.png") no-repeat scroll 0 0 transparent;
+}
+.npm-bookmark-dialog .npm-display-container dl dt.label-title span,
+.npm-bookmark-dialog .npm-edit-container dl dt.label-title span{
+	font-weight: normal;
 }
 
 /* ダイアログ内枠 */
@@ -147,7 +151,6 @@ span.close {
 .npm-bookmark-dialog .npm-delete-confirm-container dl dd {
 	margin-bottom: 10px;
 	padding-top: 3px;
-	padding-bottom: 20px;
 	border-bottom: 1px dotted #8f8f8f;
 }
 .npm-bookmark-dialog .npm-display-container dl dd.npm-rate,
@@ -160,9 +163,12 @@ span.close {
 }
 
 /* ボタン枠 */
-.npm-bookmark-dialog .npm-display-container .npm-action,
-.npm-bookmark-dialog .npm-edit-container .npm-action,
-.npm-bookmark-dialog .npm-delete-confirm-container .npm-action {
+.npm-bookmark-dialog .npm-display-container .npm-top-action,
+.npm-bookmark-dialog .npm-display-container .npm-bottom-action,
+.npm-bookmark-dialog .npm-edit-container .npm-top-action,
+.npm-bookmark-dialog .npm-edit-container .npm-bottom-action,
+.npm-bookmark-dialog .npm-delete-confirm-container .npm-top-action,
+.npm-bookmark-dialog .npm-delete-confirm-container .npm-bottom-action {
 	position:relative;
 	xwidth: 165px;
 	height: 30px;
@@ -170,15 +176,20 @@ span.close {
 	cursor: default;
 }
 
-.npm-bookmark-dialog .npm-display-container .npm-action:first-child,
-.npm-bookmark-dialog .npm-edit-container .npm-action:first-child,
-.npm-bookmark-dialog .npm-delete-confirm-container .npm-action:first-child {
+.npm-bookmark-dialog .npm-display-container .npm-action:first-child-top,
+.npm-bookmark-dialog .npm-edit-container .npm-action:first-child-top,
+.npm-bookmark-dialog .npm-delete-confirm-container .npm-action:first-child-top {
+	border-bottom: 1px solid #ccc;
+}
+
+.npm-bookmark-dialog .npm-display-container .npm-top-action,
+.npm-bookmark-dialog .npm-edit-container .npm-top-action {
 	border-bottom: 1px solid #ccc;
 }
 
 
 /* 登録ボタン */
-.npm-bookmark-dialog .npm-edit-container .npm-action .npm-dialog-button.npm-send {
+.npm-bookmark-dialog .npm-edit-container .npm-bottom-action .npm-dialog-button.npm-send {
 	width: 250px;
 	height: 30px;
 	margin: 0px auto;
@@ -197,13 +208,12 @@ span.close {
 }
 
 /* 編集キャンセルボタン */
-.npm-bookmark-dialog .npm-edit-container .npm-action .npm-dialog-button.npm-edit-cancel {
+.npm-bookmark-dialog .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
 	position:absolute;
 	top: 4px;
 	left: 0;
 	height: 20px;
-	padding-left: 23px;
-	background: url("img/edit-icon-m.png") no-repeat scroll 0 0 transparent;
+	padding-left: 0px;
 	font-size:108%;
 	color: #3866ef;
 	cursor: pointer;
@@ -217,7 +227,7 @@ span.close {
 
 
 /* 編集ボタン */
-.npm-bookmark-dialog .npm-display-container .npm-action .npm-dialog-button.npm-edit {
+.npm-bookmark-dialog .npm-display-container .npm-top-action .npm-dialog-button.npm-edit {
 	position:absolute;
 	top: 4px;
 	left: 0;
@@ -246,9 +256,9 @@ span.close {
 } */
 
 /* 削除確認ボタン */
-.npm-bookmark-dialog .npm-display-container .npm-action .npm-dialog-button.npm-delete-confirm {
+.npm-bookmark-dialog .npm-display-container .npm-bottom-action .npm-delete-confirm {
 	position:absolute;
-	hetop: 0;
+	top: 0;
 	right: 0;
 	bottom: 5px;
 	width: 30px;
@@ -279,23 +289,39 @@ span.close {
 	margin-left: 5px;
 	margin-bottom: 5px;
 	letter-spacing: normal;
-	padding: 2px 5px;
+	padding: 2px 5px 2px 0px;
 	color:#ffffff;
 	border-radius: 5px;
 	background-color:#83b142;
 
 	/*　左に○を入れたいみたいなので、その時は画像を用意してここに。
-	background: url("img/edit-icon-m.png") no-repeat scroll 0 0 transparent;
+	background: url("img/circle.png") no-repeat scroll 0 0 transparent;
 	*/
 }
 
+.npm-bookmark-dialog .npm-display-container .npm-tags-display ul.tags li.tag input {
+	line-height: 1.0;
+}
+
+/* ラベル左中点 */
+.npm-bookmark-dialog .npm-display-container .npm-tags-display ul.tags li.tag:before {
+	content: "・";
+	font-size: 20px;
+	font-weight: bold;
+	vertical-align: middle;
+}
 /* コメント */
 .npm-bookmark-dialog .npm-display-container .npm-memo-display  {
 	width: 100%;
 	height: 100px;
-	overflow: auto;
-
+	xoverflow: auto;
 }
+
+	/* コメント枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-memo-display {
+	padding-bottom: 5px;
+}
+
 
 /********************
 4. edit mode
@@ -303,10 +329,16 @@ span.close {
 
 /* ラベル枠 */
 .npm-bookmark-dialog .npm-edit-container .npm-tags {
+	position: relative;
 	margin-top: 5px;
 	padding-top: 5px;
 	letter-spacing: -.40em;
 	border: 1px solid #cccccc;
+}
+
+/* ラベル */
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags {
+	margin-right: 20px;
 }
 
 /* ラベル */
@@ -315,7 +347,6 @@ span.close {
 	*display: inline;  
 	*zoom: 1; 
 	margin-left: 5px;
-	margin-bottom: 5px;
 	letter-spacing: normal;
 	padding: 2px 5px;
 	color:#ffffff;
@@ -329,16 +360,33 @@ span.close {
 	*display: inline;  
 	*zoom: 1; 
 	margin-left: 5px;
-	margin-bottom: 5px;
+}
+
+/* ラベル横▼ */
+.npm-bookmark-dialog .npm-edit-container .sdx-tag .suggest-button {
+	position: absolute;
+	right: 3px;
+	bottom: 5px;
+	clear: both;
+}
+
+/* ラベル input */
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag input {
+	float: left;
+	border: 2px solid #ffffff;
 }
 
 /* 登録ラベル表示 */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion {
 	z-index: 100;
+	border-right: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
 }
 
 /* 登録ラベル */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion li {
+	margin: 0px 2px;
 	letter-spacing: normal;
 }
 
@@ -346,6 +394,12 @@ span.close {
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.delete {
 	cursor: default;
 	float:left;
+	margin-right: 5px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.value {
+	cursor: default;
+	float: right;
 	margin-right: 5px;
 }
 
@@ -368,7 +422,7 @@ span.close {
 /* コメント */
 .npm-bookmark-dialog .npm-edit-container .npm-memo textarea.npm-memo-textarea  {
 	width: 100%;
-	height: 100px;
+	height: 186px;
 	-webkit-box-sizing: border-box; /* Chrome, Safari */
 	-moz-box-sizing: border-box;    /* Firefox */
 	box-sizing: border-box;         /* IE8+, Opera */
@@ -413,6 +467,7 @@ span.close {
 }
 
 /* ボタン枠 */
+.npm-bookmark-dialog .npm-delete-confirm-container .npm-action,
 .npm-bookmark-dialog .npm-delete-confirm-container .npm-action {
 	height: auto;
 	border-bottom: none;

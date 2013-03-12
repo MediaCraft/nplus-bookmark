@@ -278,11 +278,13 @@ function _toDisplayMode()
 	_editing = false;
 	//memo
 	var memo_value = autolink(_params.memo || '');
+		  memo_len = memo_value.length;
 		  memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : 'なし';
+		  
 	var memo_elem = _npm_display.find('.npm-memo-display');
 	      memo_elem.html(memo_value);
 	
-	if (memo_value.length === 0)
+	if (memo_len === 0)
 	{
 		memo_elem.switchClass('npm-memo-yes', 'npm-memo-no');
 	}

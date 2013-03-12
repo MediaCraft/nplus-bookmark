@@ -150,7 +150,7 @@ span.close {
 .npm-bookmark-dialog .npm-edit-container dl dd,
 .npm-bookmark-dialog .npm-delete-confirm-container dl dd {
 	margin-bottom: 10px;
-	padding-top: 3px;
+	padding: 3px 0px;
 	border-bottom: 1px dotted #8f8f8f;
 }
 .npm-bookmark-dialog .npm-display-container dl dd.npm-rate,
@@ -305,6 +305,7 @@ span.close {
 	display:inline-block;
 	*display: inline;  
 	*zoom: 1; 
+	*padding-left: 3px;
 	margin-left: 5px;
 	margin-bottom: 5px;
 	letter-spacing: normal;
@@ -351,6 +352,7 @@ span.close {
 	position: relative;
 	margin-top: 5px;
 	padding-top: 5px;
+	padding-bottom: 0px;
 	letter-spacing: -.40em;
 	border: 1px solid #cccccc;
 }
@@ -363,9 +365,12 @@ span.close {
 /* ラベル */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.tag {
 	display:inline-block;
+	position: relative;
 	*display: inline;  
 	*zoom: 1; 
+	*padding-left: 30px;
 	margin-left: 5px;
+	margin-bottom: 5px;
 	letter-spacing: normal;
 	padding: 2px 5px;
 	color:#ffffff;
@@ -379,6 +384,7 @@ span.close {
 	*display: inline;  
 	*zoom: 1; 
 	margin-left: 5px;
+	margin-bottom: 5px;
 }
 
 /* ラベル横▼ */
@@ -391,7 +397,7 @@ span.close {
 
 /* ラベル input */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag input {
-	float: left;
+	xfloat: left;
 	border: 2px solid #ffffff;
 }
 
@@ -411,15 +417,17 @@ span.close {
 
 /* ラベル×ボタン */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.delete {
+	position: absolute;
+	top: 2px;
+	left: 5px;
 	cursor: default;
-	float:left;
 	margin-right: 5px;
 }
 
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.value {
 	cursor: default;
-	float: right;
 	margin-right: 5px;
+	padding-left: 10px;
 }
 
 /* ラベル文字数エラー非表示 */

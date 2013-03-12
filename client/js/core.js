@@ -278,20 +278,29 @@ function _toDisplayMode()
 	_editing = false;
 	//memo
 	var memo_value = autolink(_params.memo || '');
-	memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : '';
-	_npm_display.find('.npm-memo-display').html(memo_value);
+		  memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : 'なし';
+	var memo_elem = _npm_display.find('.npm-memo-display');
+	      memo_elem.html(memo_value);
 	
-	//rating
-	var $rate_display = _npm_display.find('.npm-rate-display');
+	if (memo_value.length === 0)
+	{
+		memo_elem.switchClass('npm-memo-yes', 'npm-memo-no');
+	}
+	else
+	{
+		memo_elem.switchClass('npm-memo-no', 'npm-memo-yes');
+	}
 
+	//rating
+	var rating_elem = _npm_display.find('.npm-rate-display');
 	if (typeof _params.rating !== "undefined")
 	{
 		//初期化してクラスをつける
-		$rate_display.attr('class', 'npm-rate-display').addClass('npm-rate-score-' + _params.rating);
+		rating_elem.attr('class', 'npm-rate-display').addClass('npm-rating-' + _params.rating);
 		
 		if (_params.rating != '0')
 		{
-			$rate_display
+			rating_elem
 				.raty('readOnly', false)
 				.raty('score', _params.rating)
 				.raty('readOnly', true);
@@ -306,14 +315,36 @@ function _toDisplayMode()
 	_npm_display.find('.npm-date .npm-mod_date').html(_formatDate(_params.mod_date));
 	
 	//tag
-    var tags_html = '<ul class="tags">';
-    if (_params.tag){
-		for(var i = 0; i < _params.tag.length; ++i){
-			tags_html += '<li class="tag">' + _params.tag[i] + '</li>';
+	var tag_elem = _npm_display.find('.npm-tags-display');
+	var tags_html = '<ul class="tags">';
+    if (_params.tag)
+	{
+		if (_params.tag.length === 0)
+		{
+			tags_html += '<li class="tag">なし</li>';
+		}
+		else
+		{
+			for(var i = 0; i < _params.tag.length; ++i){
+				tags_html += '<li class="tag">' + _params.tag[i] + '</li>';
+			}
 		}
 	}
+	
 	tags_html += '</ul>'
-	_npm_display.find('.npm-tags-display').html(tags_html);
+	tag_elem.html(tags_html);
+	
+	if (typeof _params.tag !== "undefined")
+	{
+		if (_params.tag.length <= 0)
+		{
+			tag_elem.switchClass('npm-has-memo-yes', 'npm-has-memo-no');
+		}
+		else
+		{
+			tag_elem.switchClass('npm-has-memo-no', 'npm-has-memo-yes');
+		}
+	}
 	
 	_dialog.toggleClass(MODE_EDIT, false);
 	_dialog.toggleClass(MODE_DELETE_CONFIRM, false);

@@ -287,7 +287,7 @@ function _toDisplayMode()
 	if (typeof _params.rating !== "undefined")
 	{
 		//初期化してクラスをつける
-		$rate_display.attr('class', 'npm-rate-display').addClass('npm-rate-score-' + _params.rating);
+		$rate_display.attr('class', 'npm-rate-display').addClass('npm-rating-' + _params.rating);
 		
 		if (_params.rating != '0')
 		{

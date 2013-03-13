@@ -133,7 +133,7 @@ class Npm_Api
 
 	private function _requestFunction(&$params)
 	{
-		$uri = 'http://test.n-plus.me/api/client/1.0';
+		$uri = Npm_Uri::getInstance()->getApi('1.0');
 		$options = array('http' => array(
 				'method' => 'POST',
 				'content' => http_build_query($params),

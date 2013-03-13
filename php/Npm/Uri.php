@@ -45,11 +45,21 @@ class Npm_Uri
 		return $this->_buildUri('/sp/', $path, $params);
 	}
 	
+	public function getApi($version)
+	{
+		return self::_getBaseUri().'/api/client/'.$version;
+	}
+	
+	private function _getBaseUri()
+	{
+		return ($this->_test_mode ? 'http://test.n-plus.me' : 'https://n-plus.me');
+	}
+	
 	private function _buildUri($prepend, $path , array $params = array())
 	{
 		$path = sprintf('%d/%s', $params['client_id'], $path);
 		unset($params['client_id']);
-		$uri = ($this->_test_mode ? 'http://test.n-plus.me' : 'https://n-plus.me').$prepend. $path;
+		$uri = self::_getBaseUri().$prepend. $path;
 		
 		if($params)
 		{

@@ -207,9 +207,9 @@ function load(kind, uid, isAdded, title)
 		}).always(function(data){
 			_npm_dialog_header.removeClass(CLASS_LOADING);
 		});
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').show();
+		_npm_edit.find('.npm-top-action').show();
 	} else {
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').hide();
+		_npm_edit.find('.npm-top-action').hide();
 		_toEditMode();
 		_updateTagSuggestValues(kind);
 	}
@@ -282,10 +282,21 @@ function _toDisplayMode()
 	_npm_display.find('.npm-memo-display').html(memo_value);
 	
 	//rating
-	_npm_display.find('.npm-rate-display')
-		.raty('readOnly', false)
-		.raty('score', _params.rating)
-		.raty('readOnly', true);
+	var $rate_display = _npm_display.find('.npm-rate-display');
+
+	if (typeof _params.rating !== "undefined")
+	{
+		//初期化してクラスをつける
+		$rate_display.attr('class', 'npm-rate-display').addClass('npm-rate-score-' + _params.rating);
+		
+		if (_params.rating != '0')
+		{
+			$rate_display
+				.raty('readOnly', false)
+				.raty('score', _params.rating)
+				.raty('readOnly', true);
+		}
+	}
 	
 	//is_purchased
 	_npm_display.find('.npm-is-purchased-display').html(_params.is_purchased == 1 ? "遊んだ" : '');

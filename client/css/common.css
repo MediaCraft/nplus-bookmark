@@ -274,6 +274,25 @@ span.close {
 	font-size: 116%;
 }
 
+/* 評価 */
+.npm-bookmark-dialog .npm-display-container .npm-rate-display > span {
+	display:none;
+}
+
+.npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rate-score-0 {
+	font-size: 108%;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+
+.npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rate-score-0 > span {
+	display:block;
+}
+
+.npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rate-score-0 img,
+.npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rate-score-0 + .npm-rate-caption {
+	display : none;
+}
 
 /* ラベル枠 */
 .npm-bookmark-dialog .npm-display-container .npm-tags-display {

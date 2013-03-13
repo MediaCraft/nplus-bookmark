@@ -162,6 +162,12 @@ span.close {
 	border-bottom: none;
 }
 
+/* 評価なし */
+.npm-bookmark-dialog .npm-display-container dl dd.npm-rating-0 img {
+	display: none;
+	border-bottom: 1px dotted #8f8f8f;
+}
+
 /* ボタン枠 */
 .npm-bookmark-dialog .npm-display-container .npm-top-action,
 .npm-bookmark-dialog .npm-display-container .npm-bottom-action,
@@ -330,6 +336,16 @@ span.close {
 	font-weight: bold;
 	vertical-align: middle;
 }
+
+/* ラベルなし枠 */
+.npm-bookmark-dialog .npm-display-container .npm-has-memo-no ul.tags li.tag {
+	margin-left: 20px;
+	background: none;
+}
+.npm-bookmark-dialog .npm-display-container .npm-has-memo-no ul.tags li.tag:before {
+	content: none;
+}
+
 /* コメント */
 .npm-bookmark-dialog .npm-display-container .npm-memo-display  {
 	width: 100%;
@@ -337,11 +353,15 @@ span.close {
 	xoverflow: auto;
 }
 
-	/* コメント枠 */
+/* コメント枠 */
 .npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-memo-display {
 	padding-bottom: 5px;
 }
 
+/* コメントなし枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-memo-no {
+	margin-left: 20px;
+}
 
 /********************
 4. edit mode

@@ -26,6 +26,14 @@
 	color:#ffffff;
 }
 
+.npm-bookmark-dialog.npm-device-sp .npm-display-container,
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container,
+.npm-bookmark-dialog.npm-device-sp .npm-delete-confirm-container {
+	position: relative;
+	clear: both;
+}
+
+
 /* ヘッダー */
 .npm-bookmark-dialog.npm-device-sp .npm-bookmark-dialog-header {
 	padding: 5px;

@@ -55,7 +55,7 @@ div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.ta
 	padding-left: 10px;
 }
 
-div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.tag span.delete {
+div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags ul.tags li.tag span.delete {
 	display: block;
 	width: 30px;
 	height: 20px;

@@ -207,9 +207,9 @@ function load(kind, uid, isAdded, title)
 		}).always(function(data){
 			_npm_dialog_header.removeClass(CLASS_LOADING);
 		});
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').show();
+		_npm_edit.find('.npm-top-action').show();
 	} else {
-		_npm_edit.find('.npm-dialog-button.npm-edit-cancel').hide();
+		_npm_edit.find('.npm-top-action').hide();
 		_toEditMode();
 		_updateTagSuggestValues(kind);
 	}
@@ -278,14 +278,36 @@ function _toDisplayMode()
 	_editing = false;
 	//memo
 	var memo_value = autolink(_params.memo || '');
-	memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : '';
-	_npm_display.find('.npm-memo-display').html(memo_value);
+		  memo_len = memo_value.length;
+		  memo_value = memo_value ? memo_value.replace(/(\r\n|\n|\r)/g, "<br />") : 'なし';
+		  
+	var memo_elem = _npm_display.find('.npm-memo-display');
+	      memo_elem.html(memo_value);
 	
+	if (memo_len === 0)
+	{
+		memo_elem.switchClass('npm-memo-yes', 'npm-memo-no');
+	}
+	else
+	{
+		memo_elem.switchClass('npm-memo-no', 'npm-memo-yes');
+	}
+
 	//rating
-	_npm_display.find('.npm-rate-display')
-		.raty('readOnly', false)
-		.raty('score', _params.rating)
-		.raty('readOnly', true);
+	var rating_elem = _npm_display.find('.npm-rate-display');
+	if (typeof _params.rating !== "undefined")
+	{
+		//初期化してクラスをつける
+		rating_elem.attr('class', 'npm-rate-display').addClass('npm-rating-' + _params.rating);
+		
+		if (_params.rating != '0')
+		{
+			rating_elem
+				.raty('readOnly', false)
+				.raty('score', _params.rating)
+				.raty('readOnly', true);
+		}
+	}
 	
 	//is_purchased
 	_npm_display.find('.npm-is-purchased-display').html(_params.is_purchased == 1 ? "遊んだ" : '');
@@ -295,14 +317,36 @@ function _toDisplayMode()
 	_npm_display.find('.npm-date .npm-mod_date').html(_formatDate(_params.mod_date));
 	
 	//tag
-    var tags_html = '<ul class="tags">';
-    if (_params.tag){
-		for(var i = 0; i < _params.tag.length; ++i){
-			tags_html += '<li class="tag">' + _params.tag[i] + '</li>';
+	var tag_elem = _npm_display.find('.npm-tags-display');
+	var tags_html = '<ul class="tags">';
+    if (_params.tag)
+	{
+		if (_params.tag.length === 0)
+		{
+			tags_html += '<li class="tag">なし</li>';
+		}
+		else
+		{
+			for(var i = 0; i < _params.tag.length; ++i){
+				tags_html += '<li class="tag">' + _params.tag[i] + '</li>';
+			}
 		}
 	}
+	
 	tags_html += '</ul>'
-	_npm_display.find('.npm-tags-display').html(tags_html);
+	tag_elem.html(tags_html);
+	
+	if (typeof _params.tag !== "undefined")
+	{
+		if (_params.tag.length <= 0)
+		{
+			tag_elem.switchClass('npm-has-memo-yes', 'npm-has-memo-no');
+		}
+		else
+		{
+			tag_elem.switchClass('npm-has-memo-no', 'npm-has-memo-yes');
+		}
+	}
 	
 	_dialog.toggleClass(MODE_EDIT, false);
 	_dialog.toggleClass(MODE_DELETE_CONFIRM, false);
@@ -476,11 +520,13 @@ $.npmBookmarkDisplay = function(kind, uid, data){
 		
 		elems.addClass(CLASS_HAS_MEMO + (data.memo ? 'yes' : 'no'));
 		elems.addClass(CLASS_RATING + (data.rating ? data.rating : '0'));
-		elems.show();
+		elems.removeClass(CLASS_NOT_ADDED);
+		elems.addClass(CLASS_ADDED);
 	}
 	else
 	{
-		elems.hide();
+		elems.removeClass(CLASS_ADDED);
+		elems.addClass(CLASS_NOT_ADDED);
 	}
 }
 

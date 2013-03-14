@@ -25,6 +25,18 @@ class Npm_Uri
 		return self::$_instance;
 	}
 	
+	public function forceServer($value)
+	{
+		if($value == 'clear')
+		{
+			unset($_SESSION['npm']['server']);
+		}
+		else
+		{
+			$_SESSION['npm']['server'] = $value;
+		}
+	}
+	
 	public function enableTestMode()
 	{
 		$this->_test_mode = true;
@@ -52,6 +64,11 @@ class Npm_Uri
 	
 	private function _getBaseUri()
 	{
+		if(isset($_SESSION['npm']['server']))
+		{
+			return $_SESSION['npm']['server'];
+		}
+		
 		return ($this->_test_mode ? 'http://test.n-plus.me' : 'https://n-plus.me');
 	}
 	

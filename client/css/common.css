@@ -114,8 +114,15 @@
 /* 閉じるボタン */
 span.close {
 	display: block;
-	text-align: right;
 	float: right;
+	width: 22px;
+	background: url("img/close-btn.png") no-repeat scroll 0 0 transparent;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 22px;
+	vertical-align: middle;
+	color: #333;
 }
 
 /* 各項目題名枠 */
@@ -286,9 +293,12 @@ span.close {
 }
 
 .npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rating-0 {
-	font-size: 108%;
-	margin-left: 20px;
+	height: 34px;
 	margin-bottom: 10px;
+	padding-left: 20px;
+	border-bottom: 1px dotted #8f8f8f;
+	font-size: 108%;
+	line-height: 10px;
 }
 
 .npm-bookmark-dialog .npm-display-container .npm-rate-display.npm-rating-0 > span {
@@ -325,6 +335,10 @@ span.close {
 	*/
 }
 
+.npm-bookmark-dialog .npm-display-container .npm-has-memo-no ul.tags li.tag {
+	color: #666;
+}
+
 .npm-bookmark-dialog .npm-display-container .npm-tags-display ul.tags li.tag input {
 	line-height: 1.0;
 }
@@ -359,8 +373,8 @@ span.close {
 }
 
 /* コメントなし枠 */
-.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-memo-no {
-	margin-left: 20px;
+.npm-bookmark-dialog .npm-display-container .npm-memo-display {
+	padding-left: 20px;
 }
 
 /********************

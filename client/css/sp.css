@@ -26,6 +26,14 @@
 	color:#ffffff;
 }
 
+.npm-bookmark-dialog.npm-device-sp .npm-display-container,
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container,
+.npm-bookmark-dialog.npm-device-sp .npm-delete-confirm-container {
+	position: relative;
+	clear: both;
+}
+
+
 /* ヘッダー */
 .npm-bookmark-dialog.npm-device-sp .npm-bookmark-dialog-header {
 	padding: 5px;
@@ -40,6 +48,19 @@ span.close {
 /* スマホはコメントを全部出す(スクロールの動作が不安定のため) */
 div.npm-bookmark-dialog div.npm-display-container dl dd.npm-memo-display {
 	height: auto;
+}
+
+/* タグのXボタンを押しやすく */
+div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.tag {
+	padding-left: 10px;
+}
+
+div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags ul.tags li.tag span.delete {
+	display: block;
+	width: 30px;
+	height: 20px;
+	line-height: 13px;
+	font-size: 131%;
 }
 
 /********************

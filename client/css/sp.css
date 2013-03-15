@@ -1,12 +1,7 @@
 @charset "UTF-8";/* 雀の往来 */
 
 /********************
- 0. base
-********************/
-
-
-/********************
-0. base
+1. base
 ********************/
 
 /* モーダルウィンドウ設定 */
@@ -50,21 +45,8 @@ div.npm-bookmark-dialog div.npm-display-container dl dd.npm-memo-display {
 	height: auto;
 }
 
-/* タグのXボタンを押しやすく */
-div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.tag {
-	padding-left: 10px;
-}
-
-div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags ul.tags li.tag span.delete {
-	display: block;
-	width: 30px;
-	height: 20px;
-	line-height: 13px;
-	font-size: 131%;
-}
-
 /********************
-1. common
+2. common
 ********************/
 
 /* 各項目内容枠 */
@@ -81,4 +63,80 @@ div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags
 
 .npm-bookmark-dialog.npm-device-sp .npm-edit-container dl dd.npm-tags {
 	background-color: #fff;
+}
+
+
+/********************
+3. スマホ用に各種ボタンを押しやすく大型化
+********************/
+
+.npm-bookmark-dialog-header .dialog-title {
+	padding: 13px 0px 5px 20px;
+	background: url("img/icon-myreview.png") no-repeat scroll 0 12px transparent;
+}
+
+span.close {
+	width: 40px;
+	height: 40px;
+	background-image: url(img/sp-close-btn.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 40px 40px;
+	text-indent: -9999px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags {
+	padding-top: 0;
+}
+
+.npm-bookmark-dialog .npm-display-container .npm-top-action .npm-dialog-button.npm-edit,
+.npm-bookmark-dialog .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
+	display: block;
+	width: 140px;
+	height: 40px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag input {
+	height: 20px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags {
+	margin-right: 40px;
+	padding-bottom: 10px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .sdx-tag div.suggest-button {
+	right: 10px;
+	bottom: 10px;
+	width: 40px;
+	height: 40px;
+	background-image: url(img/sp-suggest-button.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 17px 15px;
+	text-indent: -9999px;
+}
+
+div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.tag,
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag {
+	margin: 10px 0 0 10px;
+	padding: 10px 5px;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.value {
+	padding-left: 20px;
+	line-height: 20px;
+}
+
+div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags ul.tags li.tag span.delete {
+	display: block;
+	width: 30px;
+	height: 35px;
+	line-height: 32px;
+	font-size: 200%;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion li {
+	margin: 20px 10px;
+	font-size: 153.9%;
 }

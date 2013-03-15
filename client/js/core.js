@@ -178,8 +178,14 @@ function init(dialog, options)
 	});
 	
 	//npm-display-[kind]-[uid]のクラスがついてるものにratingとmemo有り無しclassをくっつける
-	$(window).on('npmBookmarkUpdate', function(e, data){
-		$.npmBookmarkDisplay(data.item.kind, data.item.uid, {rating:data.rating, memo:!!data.memo});
+	$(window).on('npmBookmarkUpdate', function(e, return_data){
+		return_data = return_data[0] ? return_data : [return_data];
+		$.each(return_data, function(index, data){
+			if(!data.item){
+				return true;
+			}
+			$.npmBookmarkDisplay(data.item.kind, data.item.uid, {rating:data.rating, memo:!!data.memo});
+		});
 	});
 	
 	$(window).on('npmBookmarkDelete', function(e, data){
@@ -581,13 +587,21 @@ $.npmBookmarkButton = function(options){
 	bookmark_button_options = options;
 	bookmark_button_parent = $(bookmark_button_options.parent);	
 
-	$(window).on('npmBookmarkUpdate', function(e, data){
-		var kind = data.item.kind, uid = data.item.uid;
-		if (!bookmark_buttons[kind] || !bookmark_buttons[kind][uid]) return;
-		
-		$.each(bookmark_buttons[kind][uid], function(){
-			this.toggleClass(CLASS_NOT_ADDED, false);
-			this.toggleClass(CLASS_ADDED, true);
+	$(window).on('npmBookmarkUpdate', function(e, return_data){
+		//複数返ってくる場合との差異を吸収
+		return_data = return_data[0] ? return_data : [return_data];
+		$.each(return_data, function(index, data){
+			//item以外のdataはスルー
+			if(!data.item){
+				return true;
+			}
+			var kind = data.item.kind, uid = data.item.uid;
+			if (!bookmark_buttons[kind] || !bookmark_buttons[kind][uid]) return;
+			
+			$.each(bookmark_buttons[kind][uid], function(){
+				this.toggleClass(CLASS_NOT_ADDED, false);
+				this.toggleClass(CLASS_ADDED, true);
+			});
 		});
 	}).on('npmBookmarkDelete', function(e, data){
 		var kind = data.item.kind, uid = data.item.uid;

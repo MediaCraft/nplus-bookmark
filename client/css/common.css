@@ -123,6 +123,7 @@ span.close {
 	line-height: 22px;
 	vertical-align: middle;
 	color: #333;
+	text-indent: -9999px;
 }
 
 /* 各項目題名枠 */

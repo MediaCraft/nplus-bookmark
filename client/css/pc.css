@@ -13,7 +13,7 @@
 
 /* モーダル */
 #sdxTipOverlay {
-	z-index: 98;
+	z-index: 1000;
 	opacity: 0.2;
 	filter: alpha(opacity=20);
 	background-color: #fff;
@@ -21,7 +21,7 @@
 
 /* ダイアログ外枠 */
 .npm-bookmark-dialog.npm-device-pc {
-	z-index: 99;
+	z-index: 1001;
 	width: 400px;
 	padding: 9px;
 	border: 1px solid #b3b7ba;

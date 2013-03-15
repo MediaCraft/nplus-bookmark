@@ -70,12 +70,12 @@ div.npm-bookmark-dialog div.npm-display-container dl dd.npm-memo-display {
 3. スマホ用に各種ボタンを押しやすく大型化
 ********************/
 
-.npm-bookmark-dialog-header .dialog-title {
+.npm-device-sp .npm-bookmark-dialog-header .dialog-title {
 	padding: 13px 0px 5px 20px;
 	background: url("img/icon-myreview.png") no-repeat scroll 0 12px transparent;
 }
 
-span.close {
+.npm-device-sp span.close {
 	width: 40px;
 	height: 40px;
 	background-image: url(img/sp-close-btn.png);
@@ -85,27 +85,27 @@ span.close {
 	text-indent: -9999px;
 }
 
-.npm-bookmark-dialog .npm-edit-container .npm-tags {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags {
 	padding-top: 0;
 }
 
-.npm-bookmark-dialog .npm-display-container .npm-top-action .npm-dialog-button.npm-edit,
-.npm-bookmark-dialog .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
+.npm-bookmark-dialog.npm-device-sp .npm-display-container .npm-top-action .npm-dialog-button.npm-edit,
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
 	display: block;
 	width: 140px;
 	height: 40px;
 }
 
-.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag input {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags ul.tags li.new-tag input {
 	height: 20px;
 }
 
-.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags ul.tags {
 	margin-right: 40px;
 	padding-bottom: 10px;
 }
 
-.npm-bookmark-dialog .npm-edit-container .sdx-tag div.suggest-button {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .sdx-tag div.suggest-button {
 	right: 10px;
 	bottom: 10px;
 	width: 40px;
@@ -117,13 +117,13 @@ span.close {
 	text-indent: -9999px;
 }
 
-div.npm-bookmark-dialog div.npm-edit-container form dl dd.npm-tags ul.tags li.tag,
-.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li.new-tag {
+div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags ul.tags li.tag,
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags ul.tags li.new-tag {
 	margin: 10px 0 0 10px;
 	padding: 10px 5px;
 }
 
-.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li span.value {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags ul.tags li span.value {
 	padding-left: 20px;
 	line-height: 20px;
 }
@@ -136,7 +136,7 @@ div.npm-bookmark-dialog.npm-device-sp div.npm-edit-container form dl dd.npm-tags
 	font-size: 200%;
 }
 
-.npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion li {
+.npm-bookmark-dialog.npm-device-sp .npm-edit-container .npm-tags ul.suggestion li {
 	margin: 20px 10px;
 	font-size: 153.9%;
 }

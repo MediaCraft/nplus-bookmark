@@ -36,12 +36,13 @@
 
 /* 閉じるボタン */
 span.close {
-	height: 22px;
-	margin-top: 3px;
+	xheight: 22px;
+	xmargin-top: 3px;
 }
 
 /* スマホはコメントを全部出す(スクロールの動作が不安定のため) */
-div.npm-bookmark-dialog div.npm-display-container dl dd.npm-memo-display {
+.npm-bookmark-dialog.npm-device-sp .npm-display-container dl dd.npm-memo-display {
+	width: auto;
 	height: auto;
 }
 

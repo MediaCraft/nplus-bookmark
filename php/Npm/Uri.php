@@ -89,15 +89,18 @@ class Npm_Uri
 	
 	public function getBaseUri()
 	{
-		if(isset($_SESSION['npm']['server']))
+		if(isset($_COOKIE['npm_server']))
 		{
-			return $_SESSION['npm']['server'];
+			return $_COOKIE['npm_server'];
 		}
+		
+		$this->_test_mode = false;
 		
 		$base_uri = self::DOMAIN;
 		if($this->_test_mode) $base_uri = 'test.'.$base_uri;
 		if($this->_debug_mode) $base_uri = 'dev.'.$base_uri;
 	
+		
 		return (($this->_test_mode) ? 'http://' : 'https://').$base_uri;
 	}
 	

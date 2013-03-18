@@ -98,7 +98,7 @@ class Npm_Uri
 		if($this->_test_mode) $base_uri = 'test.'.$base_uri;
 		if($this->_debug_mode) $base_uri = 'dev.'.$base_uri;
 	
-		return (($this->_test_mode) ? 'http://' : 'https:').$base_uri;
+		return (($this->_test_mode) ? 'http://' : 'https://').$base_uri;
 	}
 	
 // private ////////////////////////////////////////////////////////////////////

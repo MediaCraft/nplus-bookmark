@@ -116,7 +116,7 @@ class Npm_Uri
 		//$paramsの中にclient_idがあったら、pathに加えた表記に直す。
 		if(isset($params['client_id']))
 		{
-			$path = sprintf('%d/%s', $params['client_id'], $path);
+			$path = '/'.$params['client_id'].$path;
 			unset($params['client_id']);
 		}
 		

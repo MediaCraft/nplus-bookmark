@@ -89,6 +89,8 @@ class Npm_Api
 	 */
 	public function validateRequest()
 	{
+		$is_subdomain = $this->_valid_domain[0] == '.';
+
 		//enableXHRProtection を呼んでいない場合は全て許可
 		if ($this->_valid_domain === null)
 		{
@@ -96,9 +98,23 @@ class Npm_Api
 		}
 
 		//DNS リバインディング対策
-		if (!isset($_SERVER['HTTP_HOST']) || (strtolower(substr($_SERVER['HTTP_HOST'], -strlen($this->_valid_domain))) != $this->_valid_domain))
+		if (!isset($_SERVER['HTTP_HOST']))
 		{
 			return false;
+		}
+		if ($is_subdomain)
+		{
+			if(strtolower(substr($_SERVER['HTTP_HOST'], -strlen($this->_valid_domain))) != $this->_valid_domain)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if (strtolower($_SERVER['HTTP_HOST']) != $this->_valid_domain)
+			{
+				return false;
+			}
 		}
 		
 		//XMLHttpRequest からのリクエストかどうかを検証
@@ -117,14 +133,24 @@ class Npm_Api
 		if (isset($_SERVER['HTTP_ORIGIN']))
 		{
 			$m = null;
-			if (!preg_match('/^https?:\\/\\/(?:[a-zA-Z0-9-]+\\.)*(?:[a-zA-Z0-9-]+)/', $_SERVER['HTTP_ORIGIN'], $m))
+			if (!preg_match('/^https?:\\/\\/((?:[a-zA-Z0-9-]+\\.)*(?:[a-zA-Z0-9-]+))/', $_SERVER['HTTP_ORIGIN'], $m))
 			{
 				return false;
 			}
 
-			if (strtolower(substr($m[0], -strlen($this->_valid_domain))) != $this->_valid_domain)
+			if ($is_subdomain)
 			{
-				return false;
+				if (strtolower(substr($m[1], -strlen($this->_valid_domain))) != $this->_valid_domain)
+				{
+					return false;
+				}
+			}
+			else
+			{
+				if (strtolower($m[1]) != $this->_valid_domain)
+				{
+					return false;
+				}
 			}
 		}
 

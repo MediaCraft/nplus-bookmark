@@ -365,7 +365,7 @@ span.close {
 .npm-bookmark-dialog .npm-display-container .npm-memo-display  {
 	width: 100%;
 	height: 100px;
-	xoverflow: auto;
+	word-break: break-all;
 }
 
 /* コメント枠 */

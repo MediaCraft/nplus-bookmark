@@ -4,7 +4,7 @@ class Npm_Api
 	private
 		$_is_debug_mode = false,
 		$_params,
-		$_valid_domain = null;
+		$_valid_domains = null;
 	
 	/**
 	 * 
@@ -72,49 +72,81 @@ class Npm_Api
 	 * XMLHttpRequest 経由でのリクエストの場合に必要なセキュリティチェックを有効にする
 	 * 
 	 * $valid_domain には API リクエストを受け付けるドメイン（Npm_Api::request を使用する PHP が動いているサーバのドメイン）を渡します
-	 * DNS リバインディング対策にも利用しているため $_SERVER['HTTP_HOST'] から取得した値は使用しないでください
-	 * （"www1.example.com" "www2.example.com" など複数のホスト名からアクセスされる可能性がある場合は ".example.com" を渡してください）
-	 * また、XMLHttpRequest でリクエストする際に X-Requested-With: XMLHttpRequest を付与してください
+	 * ここで渡される引数は DNS リバインディング対策にも利用しているため $_SERVER['HTTP_HOST'] から取得した値は使用しないでください
+	 * （"www1.example.com" "www2.example.com" など複数のホスト名からアクセスされる可能性がある場合は ".example.com" を渡すか、配列で複数のドメインを渡して下さい）
+	 * また、XMLHttpRequest でリクエストする際には X-Requested-With: XMLHttpRequest を付与してください
 	 * クロスドメイン通信は許可されません
-	 * @param string $valid_domain リクエスト先ドメイン（後方一致）
+	 * @param string|array $valid_domain リクエスト先ドメイン（後方一致）
 	 */
-	public function enableXHRProtection($valid_domain)
+	public function enableXHRProtection($valid_domains)
 	{
-		$this->_valid_domain = strtolower($valid_domain);
+		//配列に揃える
+		if (is_string($valid_domains))
+		{
+			$valid_domains = array($valid_domains);
+		}
+
+		//小文字に揃える
+		foreach($valid_domains as &$value)
+		{
+			$value = strtolower($value);
+		}
+
+		$this->_valid_domains = $valid_domains;
 	}
 	
+	/**
+	 * $domain が受け入れ可能なドメインか調べる
+	 * @param string $domain
+	 * @return boolean 受け入れ可能な場合は true
+	 */
+	public function isValidDomain($domain)
+	{
+		if ($this->_valid_domains === null)
+		{
+			return true;
+		}
+
+		//小文字に揃える
+		$domain = strtolower($domain);
+
+		foreach($this->_valid_domains as $d)
+		{
+			if ($d[0] == '.')
+			{
+				//サブドメインの場合は後方一致
+				if(substr($domain, -strlen($d)) == $d)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if ($domain == $d)
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 	/**
 	 * 現在のリクエストが必要な条件を満たしているか検証する
 	 * @return boolean
 	 */
 	public function validateRequest()
 	{
-		$is_subdomain = $this->_valid_domain[0] == '.';
-
 		//enableXHRProtection を呼んでいない場合は全て許可
-		if ($this->_valid_domain === null)
+		if ($this->_valid_domains === null)
 		{
 			return true;
 		}
 
 		//DNS リバインディング対策
-		if (!isset($_SERVER['HTTP_HOST']))
+		if (!isset($_SERVER['HTTP_HOST']) || !$this->isValidDomain($_SERVER['HTTP_HOST']))
 		{
 			return false;
-		}
-		if ($is_subdomain)
-		{
-			if(strtolower(substr($_SERVER['HTTP_HOST'], -strlen($this->_valid_domain))) != $this->_valid_domain)
-			{
-				return false;
-			}
-		}
-		else
-		{
-			if (strtolower($_SERVER['HTTP_HOST']) != $this->_valid_domain)
-			{
-				return false;
-			}
 		}
 		
 		//XMLHttpRequest からのリクエストかどうかを検証
@@ -138,19 +170,9 @@ class Npm_Api
 				return false;
 			}
 
-			if ($is_subdomain)
+			if (!$this->isValidDomain($m[1]))
 			{
-				if (strtolower(substr($m[1], -strlen($this->_valid_domain))) != $this->_valid_domain)
-				{
-					return false;
-				}
-			}
-			else
-			{
-				if (strtolower($m[1]) != $this->_valid_domain)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 

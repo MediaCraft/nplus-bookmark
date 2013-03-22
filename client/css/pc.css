@@ -136,6 +136,12 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-d
 	margin-top: 5px;
 }
 
+@media screen and (max-device-width: 1024px) {
+ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-display{ 
+	height: auto;
+	}
+}
+
 
 /* 登録日時内容枠 */
 .npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd.npm-date,

@@ -136,10 +136,9 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-d
 	margin-top: 5px;
 }
 
-@media screen and (max-device-width: 1024px) {
- div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-display{ 
+div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-ios, 
+div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-android {
 	height: auto;
-	}
 }
 
 

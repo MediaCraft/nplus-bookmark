@@ -1,16 +1,14 @@
 <?php
 class Npm_Uri
 {
-	const DOMAIN = 'n-plus.me';
 	const PREPEND_PC = '';
 	const PREPEND_MOBILE = '/m';
 	const PREPEND_SP = '/sp';
 	
 	private static $_instance;
 	
-	private	$_test_mode = false;
 	private	$_debug_mode = false;
-	
+	private $_base_uri = 'https://n-plus.me';
 	
 	private function __construct()
 	{
@@ -30,26 +28,19 @@ class Npm_Uri
 		return self::$_instance;
 	}
 	
-	public function forceServer($value)
-	{
-		if($value == 'clear')
-		{
-			unset($_SESSION['npm']['server']);
-		}
-		else
-		{
-			$_SESSION['npm']['server'] = $value;
-		}
-	}
-	
-	public function enableTestMode()
-	{
-		$this->_test_mode = true;
-	}
+// 	public function enableTestMode()
+// 	{
+// 		$this->_test_mode = true;
+// 	}
 	
 	public function enableDebugMode()
 	{
 		$this->_debug_mode = true;
+	}
+	
+	public function isDebugMode()
+	{
+		return $this->_debug_mode;
 	}
 	
 	public function getForPc($path, array $params = array())
@@ -74,44 +65,39 @@ class Npm_Uri
 	
 	public function getPathPc($path, array $params = array())
 	{
-		return $this->_bildPath(self::PREPEND_PC, $path, $params);
+		return $this->_buildPath(self::PREPEND_PC, $path, $params);
 	}
 	
 	public function getPathMobile($path, array $params = array())
 	{
-		return $this->_bildPath(self::PREPEND_MOBILE, $path, $params);
+		return $this->_buildPath(self::PREPEND_MOBILE, $path, $params);
 	}
 	
 	public function getPathSp($path, array $params = array())
 	{
-		return $this->_bildPath(self::PREPEND_SP, $path, $params);
+		return $this->_buildPath(self::PREPEND_SP, $path, $params);
+	}
+	
+	public function setBaseUri($uri)
+	{
+		$this->_base_uri = $uri;
+		
+		return $this;
 	}
 	
 	public function getBaseUri()
 	{
-		if(isset($_COOKIE['npm_server']))
-		{
-			return $_COOKIE['npm_server'];
-		}
-		
-		$this->_test_mode = false;
-		
-		$base_uri = self::DOMAIN;
-		if($this->_test_mode) $base_uri = 'test.'.$base_uri;
-		if($this->_debug_mode) $base_uri = 'dev.'.$base_uri;
-	
-		
-		return (($this->_test_mode) ? 'http://' : 'https://').$base_uri;
+		return $this->_base_uri;
 	}
 	
 // private ////////////////////////////////////////////////////////////////////
 	
 	private function _buildUri($prepend, $path , array $params = array())
 	{
-		return self::getBaseUri().$this->_bildPath($prepend, $path, $params);
+		return self::getBaseUri().$this->_buildPath($prepend, $path, $params);
 	}
 	
-	private function _bildPath($prepend, $path , array $params = array())
+	private function _buildPath($prepend, $path , array $params = array())
 	{
 		//$pathの先頭が/で始まっていなかったら、/を付ける。
 		$path = (strpos($path, '/', 0) === 0) ? $path : '/'.$path;

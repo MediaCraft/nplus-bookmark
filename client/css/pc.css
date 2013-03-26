@@ -189,12 +189,12 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-android
 
 /* ラベル右▼ ラベル左x */
 .npm-bookmark-dialog.npm-device-pc .npm-edit-container .suggest-button,
-.npm-bookmark-dialog.npm-device-pc npm-edit-container dl dd.npm-tags ul.tags li.tag span.delete {
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.tags li.tag span.delete {
 	cursor: pointer;
 }
 
 /*  */
-.npm-bookmark-dialog.npm-device-pc npm-edit-container dl dd.npm-tags ul.suggestion li.selected {
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.suggestion li.selected {
 	background-color: #316ac5;
 	color: #fff;
 }

@@ -289,7 +289,7 @@ function _toDisplayMode()
 		  
 	var memo_elem = _npm_display.find('.npm-memo-display');
 	      memo_elem.html(memo_value);
-	
+
 	if (memo_len === 0)
 	{
 		memo_elem.switchClass('npm-memo-yes', 'npm-memo-no');
@@ -299,6 +299,14 @@ function _toDisplayMode()
 		memo_elem.switchClass('npm-memo-no', 'npm-memo-yes');
 	}
 
+	//ユーザーエジェントでclassを付加
+	var is_ios = ((navigator.userAgent.indexOf("iPhone") != -1)
+		|| 	(navigator.userAgent.indexOf("iPod") != -1)
+		|| 	(navigator.userAgent.indexOf("iPad") != -1));
+	var is_android = (navigator.userAgent.indexOf("Android") != -1);
+	memo_elem.toggleClass('is-ios', is_ios);
+	memo_elem.toggleClass('is-android', is_android);
+	
 	//rating
 	var rating_elem = _npm_display.find('.npm-rate-display');
 	if (typeof _params.rating !== "undefined")

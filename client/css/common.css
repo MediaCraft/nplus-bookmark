@@ -358,7 +358,7 @@ span.close {
 	background: none;
 }
 .npm-bookmark-dialog .npm-display-container .npm-has-memo-no ul.tags li.tag:before {
-	content: none;
+	content: "";
 }
 
 /* コメント */

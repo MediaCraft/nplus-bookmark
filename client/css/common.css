@@ -446,7 +446,7 @@ span.close {
 
 /* 登録ラベル */
 .npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion li {
-	margin: 0px 2px;
+	padding: 0px 2px;
 	letter-spacing: normal;
 }
 

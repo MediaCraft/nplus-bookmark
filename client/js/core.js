@@ -104,16 +104,13 @@ function init(dialog, options)
 	
 	//編集モードボタン
 	_dialog.find('.npm-dialog-button.npm-edit').click(function(){
-		if(_isNotBlocking())
-		{
-			_toEditMode();
-			_updateTagSuggestValues(_npm_edit.find('input[name=kind]').val());
-		}
+		_toEditMode();
+		_updateTagSuggestValues(_npm_edit.find('input[name=kind]').val());
 	});
 	
 	//編集キャンセルボタン
 	_dialog.find('.npm-dialog-button.npm-edit-cancel').click(function(){
-		if(_isNotBlocking())
+		if(_isNotBlocking(_npm_edit))
 		{
 			_toDisplayMode();
 		}
@@ -124,7 +121,7 @@ function init(dialog, options)
 		
 		_editing = false;
 		
-		if(_isNotBlocking())
+		if(_isNotBlocking(_npm_edit))
 		{
 			var kind = _npm_edit.find('input[name=kind]').val();
 			var uid = _npm_edit.find('input[name=uid]').val();
@@ -134,17 +131,13 @@ function init(dialog, options)
 					this.value = '0';
 				}
 			});
-			_npm_edit.addClass(CLASS_SAVING);
-			_enterBlocking();
+			_enterBlocking(_npm_edit);
 			var saveDeferred = $.npmBookmarkData('bookmark-update', kind, uid, params, true).done(function(data){
-//				_setDialogParams(data);
-//				_toDisplayMode();
 				_need_taglist_update = true;
 			}).fail(function(error){
 				alert('保存に失敗しました。');
 			}).always(function(){
-				_leaveBlocking();
-				_npm_edit.removeClass(CLASS_SAVING);
+				_leaveBlocking(_npm_edit);
 			});
 		}
 	});
@@ -161,18 +154,17 @@ function init(dialog, options)
 
 	//削除実行ボタン
 	_dialog.find('.npm-dialog-button.npm-delete').click(function(){
-		if(_isNotBlocking())
+		if(_isNotBlocking(_npm_delete_confilm))
 		{
 			var kind = _npm_edit.find('input[name=kind]').val();
 			var uid = _npm_edit.find('input[name=uid]').val();
-			
-			_enterBlocking();
+			_npm_delete_confilm.addClass(CLASS_SAVING);
 			var deleteDeferred = $.npmBookmarkData('bookmark-delete', kind, uid).done(function(){
 				
 			}).fail(function(error){
 				alert('削除に失敗しました。');
 			}).always(function(){
-				_leaveBlocking();
+				_npm_delete_confilm.removeClass(CLASS_SAVING);
 			});
 		}
 	});
@@ -412,28 +404,28 @@ function _formatDate(unixTimestamp)
 }
 
 //入力欄など、フォーム関連が編集できる状態かの判定
-function _isNotBlocking(){
-	return !_dialog.hasClass(CLASS_SAVING);
+function _isNotBlocking(target){
+	return !target.hasClass(CLASS_SAVING);
 }
 
 //入力欄などを、編集できない状態にする。
-function _enterBlocking(){
-	_npm_edit.addClass(CLASS_SAVING);
-//ここから下完全に動いてないよ～～～～～！！！
-	_npm_edit.find('.npm-memo').attr('disabled', 'disabled');
-	_npm_edit.find('input[name=is_purchased]').attr('disabled', 'disabled');
-	_npm_edit.find('.npm-tags').attr('disabled', 'disabled');
-	_npm_edit.find('.npm-rate').attr('disabled', 'disabled');
+function _enterBlocking(target){
+	target.addClass(CLASS_SAVING);
+	target.find('.npm-send').attr('disabled', 'disabled');
+	target.find('.npm-memo-textarea').attr('disabled', 'disabled');
+	target.find('input[name=is_purchased]').attr('disabled', 'disabled');
+	target.find('.npm-tags').attr('disabled', 'disabled');
+	target.find('.npm-rate').attr('disabled', 'disabled');
 }
 
 //入力欄などを、編集出来る状態にする。
-function _leaveBlocking(){
-	_npm_edit.removeClass(CLASS_SAVING);
-//ここから下完全に動いてないよ～～～～～！！！
-	_npm_edit.find('.npm-memo').removeAttr('disabled');
-	_npm_edit.find('input[name=is_purchased]').removeAttr('disabled');
-	_npm_edit.find('.npm-tags').removeAttr('disabled');
-	_npm_edit.find('.npm-rate').removeAttr('disabled');
+function _leaveBlocking(target){
+	target.removeClass(CLASS_SAVING);
+	target.find('.npm-send').removeAttr('disabled');
+	target.find('.npm-memo-textarea').removeAttr('disabled');
+	target.find('input[name=is_purchased]').removeAttr('disabled');
+	target.find('.npm-tags').removeAttr('disabled');
+	target.find('.npm-rate').removeAttr('disabled');
 }
 
 function maxLengthValidate(textarea){

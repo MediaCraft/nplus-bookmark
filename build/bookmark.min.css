@@ -51,7 +51,7 @@ li.tag{display:inline-block;position:relative;*display:inline;*zoom:1;*padding-l
 input{xfloat:left;border:2px
 solid #fff}.npm-bookmark-dialog .npm-edit-container .npm-tags
 ul.suggestion{z-index:100;border-right:1px solid #ccc;border-bottom:1px solid #ccc;border-left:1px solid #ccc}.npm-bookmark-dialog .npm-edit-container .npm-tags ul.suggestion
-li{margin:0px
+li{padding:0px
 2px;letter-spacing:normal}.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li
 span.delete{position:absolute;top:2px;left:5px;cursor:default;margin-right:5px}.npm-bookmark-dialog .npm-edit-container .npm-tags ul.tags li
 span.value{cursor:default;margin-right:5px;padding-left:10px}.npm-bookmark-dialog .npm-edit-container .npm-tags .tags-count-message{display:none;color:#f55;font-weight:bold;letter-spacing:normal}.npm-bookmark-dialog .npm-edit-container .npm-tags.tag-char-over-count .tags-count-message{display:inline-block;color:#f55;font-weight:bold;letter-spacing:normal}.npm-bookmark-dialog .npm-edit-container .npm-memo textarea.npm-memo-textarea{width:100%;height:186px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.npm-bookmark-dialog .npm-edit-container.npm-memo-over-count .npm-memo textarea.npm-memo-textarea{background-color:#f55}.npm-bookmark-dialog .npm-edit-container .npm-memo .npm-memo-count-message{display:none}.npm-bookmark-dialog .npm-edit-container.npm-memo-over-count .npm-memo .npm-memo-count-message{color:#f55;font-weight:bold;display:block}.npm-bookmark-dialog .npm-delete-confirm-container{padding:50px
@@ -80,7 +80,10 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-android
 0 10px 22px}.npm-bookmark-dialog.npm-device-pc .npm-display-container dl dd.npm-rate-caption span,
 .npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-rate-caption
 span{padding:0
-31px 0 7px}.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-top-action .npm-dialog-button.npm-edit{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-bottom-action .npm-dialog-button.npm-delete-confirm{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-tags{letter-spacing:normal;background-color:#fff}.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container{padding:50px
+31px 0 7px}.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-top-action .npm-dialog-button.npm-edit{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-display-container .npm-bottom-action .npm-dialog-button.npm-delete-confirm{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-tags{letter-spacing:normal;background-color:#fff}.npm-bookmark-dialog.npm-device-pc .npm-edit-container .suggest-button,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.tags li.tag
+span.delete{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.suggestion
+li.selected{background-color:#316ac5;color:#fff}.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container{padding:50px
 0}.npm-bookmark-dialog.npm-device-pc .npm-title{font-weight:bold}.npm-bookmark-dialog.npm-device-pc .npm-delete-confirm-container .npm-dialog-button.npm-delete{cursor:pointer}.npm-bookmark-dialog.npm-device-pc .npm-dialog-button.npm-delete-cancel{cursor:pointer}.npm-bookmark-dialog.npm-device-sp.sp-modal-window{position:absolute;top:0;left:0;-webkit-transition:-webkit-transform 400ms ease;transition:transform 400ms ease;width:100%;height:auto}.npm-bookmark-dialog.npm-device-sp{background-color:#666;color:#fff}.npm-bookmark-dialog.npm-device-sp .npm-display-container,
 .npm-bookmark-dialog.npm-device-sp .npm-edit-container,
 .npm-bookmark-dialog.npm-device-sp .npm-delete-confirm-container{position:relative;clear:both}.npm-bookmark-dialog.npm-device-sp .npm-bookmark-dialog-header{padding:5px}span.close{xheight:22px;xmargin-top:3px}.npm-bookmark-dialog.npm-device-sp .npm-display-container dl dd.npm-memo-display{width:auto;height:auto}.npm-bookmark-dialog.npm-device-sp .npm-display-container dl dd.npm-rate-caption{padding:0

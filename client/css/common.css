@@ -61,6 +61,9 @@
 	display: block;
 }
 
+.npm-display-container .npm-memo-display a {
+	color: #3866ef;
+}
 /********************
 1. common
 ********************/

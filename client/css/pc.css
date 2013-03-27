@@ -136,10 +136,9 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-d
 	margin-top: 5px;
 }
 
-@media screen and (max-device-width: 1024px) {
- div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-display{ 
+div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-ios, 
+div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-android {
 	height: auto;
-	}
 }
 
 
@@ -186,6 +185,18 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.npm-memo-d
 .npm-bookmark-dialog.npm-device-pc .npm-edit-container .npm-tags {
 	letter-spacing: normal;
 	background-color: #ffffff;
+}
+
+/* ラベル右▼ ラベル左x */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container .suggest-button,
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.tags li.tag span.delete {
+	cursor: pointer;
+}
+
+/*  */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.suggestion li.selected {
+	background-color: #316ac5;
+	color: #fff;
 }
 
 /********************

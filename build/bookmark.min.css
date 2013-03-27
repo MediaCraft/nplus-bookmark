@@ -1,7 +1,8 @@
 .npm-load-container{display:none}.npm-save-container{display:none}.npm-loading .npm-load-container{display:inline-block}.npm-saving .npm-save-container{display:inline-block}.npm-bookmark-dialog.npm-delete-confirm-mode .npm-edit-container,
 .npm-bookmark-dialog.npm-delete-confirm-mode .npm-display-container{display:none}.npm-bookmark-dialog.npm-delete-confirm-mode .npm-delete-confirm-container{display:block}.npm-bookmark-dialog.npm-edit-mode .npm-display-container,
 .npm-bookmark-dialog.npm-edit-mode .npm-delete-confirm-container{display:none}.npm-bookmark-dialog.npm-edit-mode .npm-edit-container{display:block;background-color:#fcfdeb}.npm-bookmark-dialog.npm-display-mode .npm-edit-container,
-.npm-bookmark-dialog.npm-display-mode .npm-delete-confirm-container{display:none}.npm-bookmark-dialog.npm-display-mode .npm-display-container{display:block}.npm-bookmark-dialog{font-size:12px;line-height:1.5em}.npm-bookmark-dialog-header .dialog-title{float:left;padding:3px
+.npm-bookmark-dialog.npm-display-mode .npm-delete-confirm-container{display:none}.npm-bookmark-dialog.npm-display-mode .npm-display-container{display:block}.npm-display-container .npm-memo-display
+a{color:#3866ef}.npm-bookmark-dialog{font-size:12px;line-height:1.5em}.npm-bookmark-dialog-header .dialog-title{float:left;padding:3px
 0px 5px 20px;background:url("img/icon-myreview.png") no-repeat scroll 0 0 transparent;font-size:14px;font-weight:bold}.npm-bookmark-dialog .npm-display-container dl dt.rate-title,
 .npm-bookmark-dialog .npm-edit-container dl dt.rate-title{padding-left:20px;background:url("img/icon-rate.png") no-repeat scroll 0 0 transparent}.npm-bookmark-dialog .npm-display-container dl dt.label-title,
 .npm-bookmark-dialog .npm-edit-container dl dt.label-title{padding-left:20px;background:url("img/icon-label.png") no-repeat scroll 0 0 transparent}.npm-bookmark-dialog .npm-display-container dl dt.memo-title,

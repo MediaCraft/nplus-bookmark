@@ -193,7 +193,13 @@ div.npm-bookmark-dialog.npm-device-pc div.npm-display-container dl dd.is-android
 	cursor: pointer;
 }
 
-/*  */
+/* ラベル候補枠 */
+.npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.suggestion {
+	max-height: 235px;
+	overflow: auto;
+}
+
+/* ラベルマウスオーバー時 */
 .npm-bookmark-dialog.npm-device-pc .npm-edit-container dl dd.npm-tags ul.suggestion li.selected {
 	background-color: #316ac5;
 	color: #fff;

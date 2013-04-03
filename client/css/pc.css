@@ -37,9 +37,22 @@
 .npm-device-pc.npm-display-mode {
 	background-color: #fff;
 }
+
+.npm-bookmark-dialog .npm-display-container .npm-top-action .npm-dialog-button.npm-edit {
+	position: absolute;
+	top: -35px;
+	right: 20px;
+}
+
 /* ダイアログ外枠 編集モード*/
 .npm-device-pc.npm-edit-mode {
 	background-color: #fff;
+}
+
+.npm-bookmark-dialog .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
+	position: absolute;
+	top: -35px;
+	right: 20px;	
 }
 
 

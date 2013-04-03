@@ -188,7 +188,6 @@ span.close {
 .npm-bookmark-dialog .npm-delete-confirm-container .npm-bottom-action {
 	position:relative;
 	xwidth: 165px;
-	height: 30px;
 	margin: 0 auto;
 	cursor: default;
 }
@@ -227,8 +226,8 @@ span.close {
 /* 編集キャンセルボタン */
 .npm-bookmark-dialog .npm-edit-container .npm-top-action .npm-dialog-button.npm-edit-cancel {
 	position:absolute;
-	top: 4px;
-	left: 0;
+	top: -45px;
+	right: 20px;
 	height: 20px;
 	padding-left: 0px;
 	font-size:108%;
@@ -246,8 +245,8 @@ span.close {
 /* 編集ボタン */
 .npm-bookmark-dialog .npm-display-container .npm-top-action .npm-dialog-button.npm-edit {
 	position:absolute;
-	top: 4px;
-	left: 0;
+	top: -45px;
+	right: -30px;
 	height: 20px;
 	padding-left: 23px;
 	background: url("img/edit-icon-m.png") no-repeat scroll 0 0 transparent;
@@ -275,7 +274,7 @@ span.close {
 /* 削除確認ボタン */
 .npm-bookmark-dialog .npm-display-container .npm-bottom-action .npm-delete-confirm {
 	position:absolute;
-	top: 0;
+	top: -30px;
 	right: 0;
 	bottom: 5px;
 	width: 30px;

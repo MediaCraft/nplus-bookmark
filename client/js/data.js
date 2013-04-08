@@ -18,7 +18,6 @@ function genCacheKey(kind, uid)
 }
 
 function post(params) {
-	console.log(params);
 	return $.ajax({
 		type: "POST",
 		url: options.relayUri,
